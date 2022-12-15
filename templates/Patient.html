@@ -16,9 +16,9 @@
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a href="#" class="nav-link active">Patient</a></li>
-                    <li class="nav-item"><a href="./Doctor.html" class="nav-link">Doctor</a></li>
-                    <li class="nav-item"><a href="./Chemist.html" class="nav-link">Chemist</a></li>
-                    <li class="nav-item"><a href="./About.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="doctor" class="nav-link">Doctor</a></li>
+                    <li class="nav-item"><a href="chemist" class="nav-link">Chemist</a></li>
+                    <li class="nav-item"><a href="about" class="nav-link">About</a></li>
                 </ul>
             </header>
         </div>
@@ -26,10 +26,12 @@
 
     <main class="container">
         <div class="row justify-content-center mb-3">
+
+            <!-- Patient info -->
             <div class="col-5">
                 <div>
                     <h3 class="d-flex justify-content-center">Patient info</h3>
-                    <form method="post" action="#"> 
+                    <form method="post" action="/patient">
 
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
@@ -51,11 +53,11 @@
                         <div class="mb-3">
                             <label class="form-label" for="other">Other info</label>
                             <input type="text" id="other" name="other" class="form-control"
-                                placeholder="Having headache since 3 days">
+                                placeholder="Having headace since 3 days">
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                            <button type="submit" class="btn btn-outline-secondary">Give access</button>
                         </div>
                     </form>
                 </div>
@@ -63,6 +65,7 @@
 
             <div class="vr"></div>
 
+            <!-- Patient History -->
             <div class="col-5">
                 <div>
                     <h3 class="d-flex justify-content-center">Patient History</h3>
@@ -77,12 +80,14 @@
             </div>
         </div>
 
+        <!-- Buttons -->
         <div class="row justify-content-evenly mb-3">
             <button type="button" class="btn btn-outline-info col-2">Request Prescription</button>
-            <button type="button" class="btn btn-outline-warning col-2">Show Prescription</button>
+            <button type="button" class="btn btn-outline-warning col-2" data-bs-toggle="modal" data-bs-target="#show-prescription">Show Prescription</button>
             <button type="button" class="btn btn-outline-success col-2" id="notify-sign">Sign</button>
         </div>
 
+        <!-- Select Security -->
         <div class="container col-5 mb-3">
             <div class="input-group justify-content-center">
                 <select class="form-select" id="inputGroupSelect04" aria-label="security-level">
@@ -95,6 +100,29 @@
             </div>
         </div>
 
+        <!-- Show Prescription POP_UP -->
+        <div class="modal fade" id="show-prescription" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-5" id="prescription-heading">Prescription</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% if prescription %}
+                        <p>{{ prescription }}</p>
+                        {% else %}
+                        <p>No prescription, You are healthy</p>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sign-in notification -->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="sign" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex  text-bg-success bg-opacity-75 rounded">
