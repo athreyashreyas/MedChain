@@ -15,10 +15,10 @@
         <div class="container">
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="./Patient.html" class="nav-link">Patient</a></li>
+                    <li class="nav-item"><a href="patient" class="nav-link">Patient</a></li>
                     <li class="nav-item"><a href="#" class="nav-link active">Doctor</a></li>
-                    <li class="nav-item"><a href="./Chemist.html" class="nav-link">Chemist</a></li>
-                    <li class="nav-item"><a href="./About.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="chemist" class="nav-link">Chemist</a></li>
+                    <li class="nav-item"><a href="about" class="nav-link">About</a></li>
                 </ul>
             </header>
         </div>
@@ -26,10 +26,11 @@
 
     <main class="container">
         <div class="row justify-content-center mb-3">
+            <!-- Doctor Info -->
             <div class="col-5">
                 <div>
                     <h3 class="d-flex justify-content-center">Doctor info</h3>
-                    <form method="post" action="#">
+                    <form method="post" action="doctor">
 
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
@@ -49,6 +50,13 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label" for="hospital">Hospital</label>
+                            <input type="text" id="hospital" name="hospital" class="form-control"
+                                placeholder="Goa Medical hospital">
+                        </div>
+                        
+
+                        <div class="mb-3">
                             <label class="form-label" for="specialization">Specialization</label>
                             <input type="text" id="specialization" name="specialization" class="form-control"
                                 placeholder="Dentist">
@@ -63,23 +71,34 @@
 
             <div class="vr"></div>
 
+            <!-- Requested History -->
             <div class="col-5">
                 <div>
-                    <button type="button" class="btn btn-info">Request Patient History</button>
+                    <button type="button" class="btn btn-info" onclick="myFunction()">Request Patient History</button>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">-</li>
                     </ul>
+
+                    <ul class="list-group list-group-flush" id = "colchange" hidden>
+                        <li class="list-group-item">Liver Problems</li>
+                        <li class="list-group-item">Hair fall </li>
+                        <li class="list-group-item">Frequent migraines(2020)</li>
+                        <li class="list-group-item">Laser treatment for clear skin</li>
+                        <li class="list-group-item">others...</li>
+                    </ul>
+
                 </div>
             </div>
         </div>
 
+        <!-- BUTTONS -->
         <div class="row justify-content-evenly mb-3">
             <button type="button" class="btn btn-outline-info col-2" data-bs-toggle="modal"
                 data-bs-target="#write-prescription">Write Prescription</button>
             <button type="button" class="btn btn-outline-success col-2" id="notify-sign">Sign</button>
-            <button type="button" class="btn btn-outline-warning col-2">Send to Patient</button>
         </div>
 
+        <!-- Prescription POP-UP -->
         <div class="modal fade" id="write-prescription" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -88,19 +107,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <form action="prescription" method="post" class="mb-3" id="prescription">
                             <label for="prescription" class="form-label">Prescription</label>
-                            <textarea class="form-control" id="prescription" rows="3"></textarea>
-                        </div>
+                            <textarea class="form-control" rows="3" name="prescription"></textarea>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" form="prescription">Submit</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Sign-in notification -->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="sign" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex  text-bg-success bg-opacity-75 rounded">
@@ -135,5 +155,13 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 </body>
+
+<script>
+    function myFunction(){
+        document.getElementById("colchange").removeAttribute("hidden")
+    }
+
+</script>
+
 
 </html>
