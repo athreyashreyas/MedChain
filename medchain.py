@@ -9,7 +9,7 @@ class Message:
         self.hash = None
         self.prev_hash = None
         self.timestamp = time.time()
-        self.data = json.dumps(data)
+        self.data = data
         self.payload_hash = self.__get_payload_hash()
 
     def __get_payload_hash(self):
@@ -51,21 +51,27 @@ class Blockchain:
         if len(self.blocks) > 0:
             block.prev_hash = self.blocks[-1].hash
         self.blocks.append(block)
+    
+    def add_pres(self, pres):
+        B1 = Block()
+        B1.add_message(Message(pres))
+        self.add_block(B1)
+        
 
 
-prescription1 = {"Patient Name" : "Haritarth Bhardwaj", "Doctor Name" : "Suraj Sharma", "Medicines Prescribed" : "Paracetamol"}
-prescription2 = {"Patient Name" : "Vaishnavi Bhardwaj", "Doctor Name" : "Suraj Sharma", "Medicines Prescribed" : "Paracetamol"}
+# prescription1 = {"Patient Name" : "Haritarth Bhardwaj", "Doctor Name" : "Suraj Sharma", "Medicines Prescribed" : "Paracetamol"}
+# prescription2 = {"Patient Name" : "Vaishnavi Bhardwaj", "Doctor Name" : "Suraj Sharma", "Medicines Prescribed" : "Paracetamol"}
 
-B1 = Block()
-B1.add_message(Message(prescription1))
+# B1 = Block()
+# B1.add_message(Message(prescription1))
 
-B2 = Block()
-B2.add_message(Message(prescription2))
+# B2 = Block()
+# B2.add_message(Message(prescription2))
 
-chain = Blockchain()
-chain.add_block(B1)
-chain.add_block(B2)
+# chain = Blockchain()
+# chain.add_block(B1)
+# chain.add_block(B2)
 
-print(len(chain.blocks))
+# print(len(chain.blocks))
 
 

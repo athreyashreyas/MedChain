@@ -39,33 +39,33 @@
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
                             <input type="email" id="email" name="email" class="form-control"
-                                placeholder="stacy123@gamil.com">
+                                placeholder="stacy123@gamil.com" value = "stacy123@gamil.com" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Stacy Lance">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Stacy Lance" value="Stacy Lance" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="age">Age</label>
-                            <input type="text" id="age" name="age" class="form-control" placeholder="20">
+                            <input type="text" id="age" name="age" class="form-control" placeholder="20" value="20" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="address">Address</label>
                             <input type="text" id="address" name="address" class="form-control"
-                                placeholder="St-4,B-3, near stacy pancakes, LA">
+                                placeholder="St-4,B-3, near stacy pancakes, LA" value="St-4,B-3, near stacy pancakes, LA" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="other">Other info</label>
                             <input type="text" id="other" name="other" class="form-control"
-                                placeholder="Having headace since 3 days">
+                                placeholder="Having headace since 3 days" value="Having headace since 3 days" required>
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-outline-secondary">Give access</button>
+                            <button type="submit" class="btn btn-outline-secondary" onclick="checkDoc()">Give access</button>
                         </div>
                     </form>
                 </div>
@@ -76,14 +76,19 @@
             <!-- Patient History -->
             <div class="col-5">
                 <div>
-                    <h3 class="d-flex justify-content-center">Patient History</h3>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Liver Problems</li>
-                        <li class="list-group-item">Hair fall </li>
-                        <li class="list-group-item">Frequent migraines(2020)</li>
-                        <li class="list-group-item">Laser treatment for clear skin</li>
-                        <li class="list-group-item">others...</li>
-                    </ul>
+                    <h3 class="d-flex justify-content-center">Patient History</h3> <br>
+                    <div class="mb-3">
+                        <!-- <label class="form-label" for="other">Other info</label>    -->
+                        <form action="patienthistory" method="post" class="mb-3" id="history">
+                            <label for="history" class="form-label">Patient History</label>
+                            <textarea class="form-control" rows="3" name="history"></textarea>
+                        </form>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -167,5 +172,16 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 </body>
+
+<script>
+    function checkDoc(){
+        fetch("/patient")
+            .then(response => response.json())
+            .then(responseJson => {
+                alert(`Doctor Available kya? : ${responseJson["Doctor Available?"]} `)
+            })
+    }
+
+</script>
 
 </html>
