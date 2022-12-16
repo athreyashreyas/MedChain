@@ -16,7 +16,7 @@
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a href="patient" class="nav-link">Patient</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link active">Doctor</a></li>
+                    <li class="nav-item"><a href="doctor" class="nav-link active">Doctor</a></li>
                     <li class="nav-item"><a href="chemist" class="nav-link">Chemist</a></li>
                     <li class="nav-item"><a href="about" class="nav-link">About</a></li>
                 </ul>
@@ -75,27 +75,21 @@
             <!-- Requested History -->
             <div class="col-5">
                 <div>
-                    <button type="button" class="btn btn-info" >Request Patient History</button>
-                    <div class>
-                        {% if history %}
-                        <p>{{ history }}</p>
-                        {% else %}
-                        <p>No history Added.</p>
-                        {% endif %}
-                    </div>
+                    <a href="/patienthistory">
+                        <button type="button" class="btn btn-info">Request Patient History
+                    </button></a>
                     
-                    <!-- <ul class="list-group list-group-flush">
-                        <li class="list-group-item">-</li>
-                    </ul> -->
-                    <!-- onclick="myFunction() -->
-                    <!-- <ul class="list-group list-group-flush" id = "colchange" hidden>
-                        <li class="list-group-item">Liver Problems</li>
-                        <li class="list-group-item">Hair fall </li>
-                        <li class="list-group-item">Frequent migraines(2020)</li>
-                        <li class="list-group-item">Laser treatment for clear skin</li>
-                        <li class="list-group-item">others...</li>
-                    </ul> -->
-
+                    {% if history %}
+                    <div>
+                        <h5>History:</h5>                     
+                        <p>{{ history }}</p>
+                        <h5>Patient info:</h5>
+                        <div>
+                            <p>Age: {{ age }}</p>
+                            <p>other: {{ other }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
