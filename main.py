@@ -20,9 +20,14 @@ Medchain = None
 doctor = None
 patient = None
 prescription = None
+chemist = None
 
 pres_req = False
+signed = ""
 
+onetime = []
+medencrypt = []
+n = 0
  
  
 app = Flask(__name__)
@@ -47,7 +52,7 @@ def get_patient_data(pres = None):
             return render_template("Patient.html")
 
         patient = Patient(patient_email, patient_name, patient_age, patient_address, patient_other, doctor.name, patient_history)
-        # patient.giveAccess(2) #keyD kya hai
+        
 
         print(f"The patient's name is {patient_name}, their email is {patient_email}, age id {patient_age}, address is {patient_address} and their issue is {patient_other}, current doctor is {patient.currentDoctor}")
 
@@ -75,19 +80,31 @@ def get_doctor_data(hist = None, age = None, other = None):
 
         print(f"The doctor's name is {doctor.name}, their email is {doctor_email}, address is {doctor_address}, hospital is {doctor_hospital} and their specialization is {doctor_specialization}")
 
-        
+
     return render_template("Doctor.html", history = hist, age = age, other = other)
 
 @app.route("/prescription", methods = ["POST", "GET"])
 def get_prescription():
-    global prescription, Medchain
+    global prescription, Medchain, signed, onetime, medencrypt, n
     pres = request.form["prescription"]
-    print(pres)
+
+    if not doctor :
+        render_template("Doctor.html")
+
+    if not patient :
+        render_template("Patient.html")
+
+    onetime, medencrypt, n = sendPres(pres)
+    pres, signed = doctor.writePrescription(patient, pres)
+    
+
     prescription = Prescription(pres)
     Medchain = Blockchain()
     Medchain.add_pres(pres)
+
     print("Added the following prescription into the MedChain ledger: ")
     print(pres)
+
     return render_template("Patient.html", prescription = pres)
 
 @app.route("/patienthistory",  methods = ["POST", "GET"])
@@ -108,6 +125,9 @@ def show_history():
 
 @app.route("/chemist", methods = ["POST", "GET"])
 def get_chemist():
+    global chemist
+    chemist = Chemist()
+    chemist.readPres(onetime, medencrypt, n)
     return render_template("Chemist.html")
 
 @app.route("/about", methods = ["POST", "GET"])
