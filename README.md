@@ -18,19 +18,19 @@ The files and folders are split as follows:
 * <b>main.py </b> - The main runner file which runs the web-application on a local machine/server. It contains the flask code linking all the functions and webpages together.
 
 <h3>Steps to Run the Application </h3>
+  
+  
 1. Install python and then flask on your local machine by running the following command on your terminal:
   
   
 ```
 pip install flask 
 ```
-  
 2. Install other modules/libraries which you may not have in your machine. The ISP_Code.py file contains various cryptographic modules like Fernat, Hashlib etc. which you may not have on your machine/python version. Use the following pip command to install any package: 
   
 ```
 pip install {name_of_package}
 ```
-
 3. Run the following command on your terminal: 
   
 ```
