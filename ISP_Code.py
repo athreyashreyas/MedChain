@@ -85,35 +85,25 @@ class Doctor:
         
             f=Fernet(encryption_key)
             d=f.decrypt(history)
-            print('History of doctors')
+            print('Patient History')
             print(d)
             return 1
 
-            
-
-    
         
-        
-    def writePrescription(self, patient):
+    def writePrescription(self, patient, pres):
         prescription = self.requestAccess(patient)
         
         if prescription != 0:
 
-            
-            num = int(input("Enter the number of medicines : "))
-            medicines = []
-            
-            for i in range(num):
-                medicines.append((input("Enter name of medicine %s : "%(i+1)),input("Enter the frequency per day : ")))
+            medicines = pres
                 
             print('Medicines prescribed')
             print(medicines)
-            s=self.name+str(self.id)+str(medicines)
-            print(s)
-            print('Doctor sign',s)
+            s=self.name+str(self.id)+' '+str(medicines)
+            print('Doctor sign :',s)
             result = hashlib.sha256(s.encode())
             hashed=result.hexdigest()
-            
+            print(hashed)
             sign=[]
             for i in range(len(hashed)):
                 sign.append(pow(ord(hashed[i]),self.signature,doctorN))
@@ -159,7 +149,6 @@ class Patient:
         privP=random.randrange(2,P)
         val=pow(G,privP,P)
 
-        print('Do you want the patient to give key')
         s='Y'
         if(s[0]=='y' or s[0]=='Y'):
             secret=pow(keyD,privP,P)
@@ -173,8 +162,9 @@ class Patient:
             past=''
             
             for i in self.historyOfDoctors:
-                past+=i+' '
-            print('Past doctors')
+                past+=i
+
+            print('Patient History')
             print(past)
             past=bytes(str(past), 'utf-8')
             token=f.encrypt(past)
@@ -223,13 +213,30 @@ class Chemist:
     def verifySignature(self, patient, doctor, prescription):
         return True
  
-    def readPrescription(self, patient, doctor, prescription):
-        verified = self.verifySignature(patient, doctor, prescription)
+    # def readPrescription(self, patient, doctor, prescription):
+    #     verified = self.verifySignature(patient, doctor, prescription)
  
-        if verified :
-            hasSupplied = True
-        else:
-            print("Permission Denied")
+    #     if verified :
+    #         hasSupplied = True
+    #     else:
+    #         print("Permission Denied")
+
+    def readPres(self, one_time,med_encrypt,n):
+ 
+        print('Now the chemist is reading the prescription')
+        cnt=''
+        for j in range(len(one_time)):
+            cnt+=chr(pow(one_time[j],chemD,chemN))
+        
+        cnt=int(cnt)
+        print('Secret one time',cnt)
+        
+        for t in  range(len(med_encrypt)):
+            x=med_encrypt[t]
+            
+            for j in range(len(x)):
+                print(chr(pow(x[j],cnt,n)),end="")
+            print(' ')
 
 def modInverse(e,M):
     for x in range(1,M):
@@ -253,19 +260,18 @@ def sendPres(pres):
 
  
     med_encrypt=[]
-    for i in range(len(pres.medicines)):
-        t=pres.medicines[i][0]
-        
-        print('the medicines intended',t)
-        liss=[]
-        dns=[]
-        
-        for j in range(len(t)):
-            liss.append(pow(ord(t[j]),e,n))
-        
+    # for i in range(len(pres)):
+    t=pres
+    
+    print('the medicines intended',t)
+    liss=[]
+    
+    for j in range(len(t)):
+        liss.append(pow(ord(t[j]),e,n))
         
         
-        med_encrypt.append(liss)
+        
+    med_encrypt.append(liss)
  
     
  
@@ -288,21 +294,7 @@ def sendPres(pres):
  
  
  
-def readPres(one_time,med_encrypt,n):
- 
-    print('Now the chemist is reading the prescription')
-    cnt=''
-    for j in range(len(one_time)):
-        cnt+=chr(pow(one_time[j],chemD,chemN))
-    cnt=int(cnt)
-    print('Secret one time',cnt)
-    
-    for t in  range(len(med_encrypt)):
-        x=med_encrypt[t]
-        
-        for j in range(len(x)):
-            print(chr(pow(x[j],cnt,n)),end="")
-        print(' ')
+
         
 
         
