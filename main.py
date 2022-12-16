@@ -8,7 +8,7 @@ patient_email = ""
 patient_age = ""
 patient_address = ""
 patient_other = ""
-patient_history = ""
+patient_history = "No Access"
 
 doctor_name = ""
 doctor_email = ""
@@ -41,9 +41,12 @@ def get_patient_data(pres = None):
         patient_age = request.form["age"]
         patient_address = request.form["address"]
         patient_other = request.form["other"]
-        patient_history = request.form["history"]  #YE DEBUG KAROOO
+        patient_history = request.form["history"]  #YE DEBUG KAROOO -- hogyi debug
 
-        patient = Patient(patient_email, patient_name, patient_age, patient_address, patient_other, doctor.name)
+        if not doctor:
+            return render_template("Patient.html")
+
+        patient = Patient(patient_email, patient_name, patient_age, patient_address, patient_other, doctor.name, patient_history)
         # patient.giveAccess(2) #keyD kya hai
 
         print(f"The patient's name is {patient_name}, their email is {patient_email}, age id {patient_age}, address is {patient_address} and their issue is {patient_other}, current doctor is {patient.currentDoctor}")
@@ -60,7 +63,7 @@ def get_patient_data(pres = None):
 #     return render_template("Patient.html")
 
 @app.route("/doctor", methods = ["POST", "GET"])
-def get_doctor_data(hist = None):
+def get_doctor_data(hist = None, age = None, other = None):
     if request.method == "POST":
         global doctor_address, doctor_name, doctor_email, doctor_specialization, doctor_hospital, doctor
         doctor_name = request.form["name"]
@@ -73,7 +76,7 @@ def get_doctor_data(hist = None):
         print(f"The doctor's name is {doctor.name}, their email is {doctor_email}, address is {doctor_address}, hospital is {doctor_hospital} and their specialization is {doctor_specialization}")
 
         
-    return render_template("Doctor.html", history = hist)
+    return render_template("Doctor.html", history = hist, age = age, other = other)
 
 @app.route("/prescription", methods = ["POST", "GET"])
 def get_prescription():
@@ -89,9 +92,18 @@ def get_prescription():
 
 @app.route("/patienthistory",  methods = ["POST", "GET"])
 def show_history():
-    hist = "diarrhea"
-    print(hist)
-    return render_template("Doctor.html", history = hist)
+    # global patient
+    hist = ''
+    age = ''
+    other = ''
+    if patient:
+        hist = patient.historyOfDoctors
+        age = patient.age
+        other = patient.otherInfo
+    else:
+        hist = 'No patient yet' 
+    # print(hist)
+    return render_template("Doctor.html", history = hist, age = age, other = other)
 
 
 @app.route("/chemist", methods = ["POST", "GET"])

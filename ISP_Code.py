@@ -187,11 +187,11 @@ class Prescription:
     def __init__(self, pres):
         self.pres = pres
 
-    def upload(prescription):
+    # def upload(prescription):
 
-         '''
-            Convert prescription to json and put it on ledger/MedChain
-         '''
+    #      '''
+    #         Convert prescription to json and put it on ledger/MedChain
+    #      '''
     def giveInfo(self):
         print(' ')
         print('########################')

@@ -34,7 +34,7 @@
             <div class="col-5">
                 <div>
                     <h3 class="d-flex justify-content-center">Patient info</h3>
-                    <form method="post" action="/patient">
+                    <form method="post" action="/patient" id="patient-info">
 
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
@@ -76,26 +76,20 @@
             <!-- Patient History -->
             <div class="col-5">
                 <div>
-                    <h3 class="d-flex justify-content-center">Patient History</h3> <br>
-                    <div class="mb-3">
-                        <!-- <label class="form-label" for="other">Other info</label>    -->
-                        <form action="patienthistory" method="post" class="mb-3" id="history">
-                            <label for="history" class="form-label">Patient History</label>
-                            <textarea class="form-control" rows="3" name="history"></textarea>
-                        </form>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-outline-secondary">Upload</button>
-                    </div>
-                    
-                </div>
+                    <h3 class="d-flex justify-content-center">Patient History</h3>
+                    <input type="text" form="patient-info" readonly hidden name="history" value="Liver Problems, Frequent migraines(2020), Laser treatment for clear skin">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Liver Problems</li>
+                        <li class="list-group-item">Frequent migraines(2020)</li>
+                        <li class="list-group-item">Laser treatment for clear skin</li>
+                    </ul>
+                </div>                
             </div>
         </div>
 
         <!-- Buttons -->
         <div class="row justify-content-evenly mb-3">
-            <button type="button" class="btn btn-outline-info col-2">Request Prescription</button>
+            <!-- <button type="button" class="btn btn-outline-info col-2">Request Prescription</button> -->
             <button type="button" class="btn btn-outline-warning col-2" data-bs-toggle="modal" data-bs-target="#show-prescription">Show Prescription</button>
             <button type="button" class="btn btn-outline-success col-2" id="notify-sign">Sign</button>
         </div>
