@@ -14,7 +14,7 @@ The files and folders are split as follows:
   * Patient.html -> HTML file for the patient, containing a form for the patient to fill their information and write their ailment/symptoms for the doctor to view. The application will send this information and the patient's history to the doctor.
   * About.html -> HTML file for the page containing the names and college IDs of all the people involved in this project.
  
-* <b>ISP_Code.py </b> - A python file which contains all the code for the cryptographic algorithms and protocols (RSA, DHKE etc) used to secure and transfer the data.
+* <b>ISP_Code.py </b> - A python file which contains all the code for the cryptographic algorithms, hashing functions and protocols (RSA, SHA-256, DHKE etc) used to secure and transfer the data.
 * <b>main.py </b> - The main runner file which runs the web-application on a local machine/server. It contains the flask code linking all the functions and webpages together.
 
 <h3>Steps to Run the Application </h3>
